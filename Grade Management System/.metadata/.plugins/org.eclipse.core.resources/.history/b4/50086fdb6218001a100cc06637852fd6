@@ -1,0 +1,276 @@
+import java.util.*;
+import java.io.*;
+
+public class Tester {
+
+	static ArrayList<Course> AllCourses = new ArrayList<Course>();
+	
+	public static void main(String[] args) {
+		
+		TeacherMenu();
+	}
+	public static void TeacherMenu() 
+	{
+		System.out.println();
+		System.out.println("----------------------------------------");
+		System.out.println("Teacher Interface");
+		System.out.println("----------------------------------------");
+		System.out.println("Choose one of the following options");
+        System.out.println("1. Enter Course");
+        System.out.println("2. Student Menu(Add Students)");
+        System.out.println("3. Remove Course");
+        System.out.println("4. Print All Courses");
+        System.out.println("5. Close Interface");
+        System.out.println("----------------------------------------");
+
+        
+        Scanner sc = new Scanner(System.in);
+        String userChoice = sc.nextLine();
+        
+        switch (userChoice)
+        {
+            case "1":
+                EnterCourse();
+                break;
+            case "2":
+                StudentMenu();
+                break;
+            case "3":
+                RemoveCourse();
+                break;
+            case "4":
+                PrintCourses();
+                break;
+            case "5":
+                close();
+                break;
+        }
+		
+	}
+	public static void EnterCourse() 
+	{
+		System.out.println();
+		Scanner sc = new Scanner(System.in);
+		System.out.println();
+		System.out.println("----------------------------------");
+		System.out.println("Enter a Course");
+        System.out.println("----------------------------------");
+        System.out.println("Enter a New Course ID: ");
+        
+        
+        String newid  = sc.nextLine();
+        int NewID = Integer.parseInt(newid);
+        
+        System.out.println("Enter a Name for the Course:");
+        
+        String Newname = sc.nextLine();
+
+        System.out.println("New Course: " + Newname + "| ID: " + NewID + "| Has been Succesfully Created!");
+
+        Course NewCourse = new Course(NewID, Newname);
+
+        AllCourses.add(NewCourse);
+        TeacherMenu();
+	}
+	
+	public static void RemoveCourse() 
+	{
+		Scanner sc = new Scanner(System.in);
+		System.out.println();
+		System.out.println("----------------------------------------");
+		System.out.println("Remove Course");
+        System.out.println("----------------------------------------");
+        for (Course x : AllCourses)
+        {
+            System.out.println("Course ID: " + x.CourseID + " |Course Name: " + x.CourseName);
+        }
+        System.out.println("Select Course ID to Remove Course and its Students");
+        String selectCourse  = sc.nextLine();
+        int selectedCourse = Integer.parseInt(selectCourse);
+
+        Boolean exist = false;
+        for (Course x : AllCourses)
+            if (selectedCourse == x.CourseID)
+            {
+                x.RemoveCourse();
+                AllCourses.remove(x);
+                exist = true;
+            }
+        if (exist == false)
+        {
+            System.out.println("Course does not exist");
+        }
+        
+        TeacherMenu();
+	}
+	public static void PrintCourses() 
+	{
+		System.out.println();
+		System.out.println("----------------------------------------");
+        System.out.println("All Courses");
+        System.out.println("----------------------------------------");
+        for(Course x : AllCourses)
+        {
+            System.out.println("Course ID: " + x.CourseID + " |Course Name: " + x.CourseName);
+        }
+        
+        TeacherMenu();
+	}
+	public static void StudentMenu() 
+	{
+		System.out.println();
+		System.out.println("----------------------------------------");
+        System.out.println("Student Menu Interface");
+        System.out.println("----------------------------------------");
+        System.out.println("Choose one of the following options:");
+        System.out.println("1. Enter Student");
+        System.out.println("2. Remove Student");
+        System.out.println("3. Enter Grade");
+        System.out.println("4. Grade Analytics");
+        System.out.println("5. Close Interface");
+        System.out.println("----------------------------------------");
+        
+       Scanner sc = new Scanner(System.in);
+       String userChoice = sc.nextLine();
+        
+       switch (userChoice)
+        {
+            case "1":
+                EnterStudent();
+                break;
+            case "2":
+                RemoveStudent();
+                break;
+            case "3":
+                EnterGrade();
+                break;
+            case "4":
+                GradeAnalytics();
+                break;
+            case "5":
+                close();
+                break;
+        }
+        
+	}
+	public static void EnterStudent()
+    {
+		Scanner sc = new Scanner(System.in);
+		System.out.println();
+		System.out.println("----------------------------");
+   	 	System.out.println("Enter Student");
+   	 System.out.println("--------------------------------");
+        for (Course x:AllCourses)
+        {
+            System.out.println("Course ID: " + x.CourseID + " |Course Name: " + x.CourseName);
+        }
+        System.out.println("Select a Course to Add a Student: ");
+        String courseID  = sc.nextLine();
+        int SelectCourse = Integer.parseInt(courseID);
+
+        boolean exist = false;
+        for (Course x:AllCourses)
+            if (SelectCourse == x.CourseID)
+            {
+                x.AddStudent();
+                exist = true;
+            }
+        if (exist == false)
+        {
+            System.out.println("Course does not exist");
+        }
+        TeacherMenu();
+    }
+	public static void RemoveStudent()
+    {
+		 Scanner sc = new Scanner(System.in);
+		 System.out.println();
+		 System.out.println("---------------------------------");
+    	 System.out.println("Remove Student");
+         System.out.println("---------------------------------");
+         for (Course x:AllCourses)
+         {
+             System.out.println("Course ID: " + x.CourseID + " |Course Name: " + x.CourseName);
+         }
+         String courseID  = sc.nextLine();
+         int SelectCourse = Integer.parseInt(courseID);
+
+         boolean exist = false;
+         for (Course x:AllCourses)
+             if (SelectCourse == x.CourseID)
+             {
+                 x.RemoveStudent();
+                 exist = true;
+             }
+         if (exist == false)
+         {
+             System.out.println("Course does not exist");
+         }
+         TeacherMenu();
+     }
+     public static void EnterGrade()
+     {
+    	 Scanner sc = new Scanner(System.in);
+    	 System.out.println();
+    	 System.out.println("-------------------------------");
+    	 System.out.println("Enter Grade");
+         System.out.println("-------------------------------");
+         for (Course x:AllCourses)
+         {
+             System.out.println("Course ID: " + x.CourseID + " |Course Name: " + x.CourseName);
+         }
+         System.out.println("Choose a Course to Edit a Student Grade");
+         String courseID  = sc.nextLine();
+         int SelectCourse = Integer.parseInt(courseID);
+         boolean exist = false;
+         for (Course x:AllCourses)
+             if (SelectCourse == x.CourseID)
+             {
+                 x.EnterGrade();
+                 exist = true;
+             }
+         if (exist == false)
+         {
+             System.out.println("Course does not exist");
+         }
+         System.out.println();
+         TeacherMenu();
+     }
+     public static void GradeAnalytics()
+     {
+    	 Scanner sc = new Scanner(System.in);
+    	 System.out.println();
+         System.out.println("----------------------------------");
+         System.out.println("Grade Analytics");
+         System.out.println("----------------------------------");
+         for (Course x:AllCourses)
+         {
+             System.out.println("Course ID: " + x.CourseID + " |Course Name: " + x.CourseName);
+         }
+         System.out.println("Choose a Course to Print Grade Analytics");
+         String courseID  = sc.nextLine();
+         int SelectCourse = Integer.parseInt(courseID);
+         boolean exist = false;
+         for (Course x:AllCourses)
+             if (SelectCourse == x.CourseID)
+             {
+                 x.Average();
+                 x.Minimum();
+                 x.Maximum();
+                 x.Percentage();
+                 exist = true;
+             }
+         if (exist == false)
+         {
+             System.out.println("Course does not exist");
+         }
+         System.out.println();
+         TeacherMenu();
+
+     }
+	public static void close() 
+	{
+		System.exit(0);
+	}
+
+}

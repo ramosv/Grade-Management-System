@@ -1,0 +1,42 @@
+
+public class Student {
+
+	public int Id;
+    public String Name;
+    private double Grade;
+    
+    public Student(int id, String name, double grade)
+    {
+        this.Id = id;
+        this.Name = name;
+        this.Grade = grade;   
+    }
+    
+    public String GetName() 
+    {
+    	return this.Name;
+    }
+    public void setName(String X) 
+    {
+    	this.Name = X;
+    }
+    public int getCourseID() 
+    {
+    	return this.Id;
+    }
+    public void setCourseID(int X) 
+    {
+    	this.Id = X;
+    }
+    public double getGrade()
+    {
+    	return this.Grade;
+    }
+    public void setGrade(double X)
+    {
+        this.Grade = X;
+    }
+    
+
+
+}

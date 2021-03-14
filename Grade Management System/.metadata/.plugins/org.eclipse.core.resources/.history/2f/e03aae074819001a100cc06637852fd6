@@ -1,0 +1,9 @@
+import java.util.*;
+public class IntStudent extends Student{
+
+	public IntStudent(int id, String name, double grade) {
+		super(id, name, grade);
+		// TODO Auto-generated constructor stub
+	}
+
+}

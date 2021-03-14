@@ -1,0 +1,259 @@
+import java.util.*;
+
+public class Course {
+	
+	public String CourseName;
+    public int CourseID;
+    public ArrayList<Student> AllStudents;
+
+    public String GetCourseName() 
+    {
+    	return this.CourseName;
+    }
+    public int getCourseID() 
+    {
+    	return this.CourseID;
+    }
+    public void SetCourseName(String X) 
+    {
+    	this.CourseName = X;
+    }
+    public void SetCourseID(int X)
+    {
+    	this.CourseID = X;
+    }
+    public Course(int courseid, String coursename)
+    {
+        this.CourseName = coursename;
+        this.CourseID = courseid;
+        AllStudents = new ArrayList<Student>();
+        
+    }
+    public void RemoveCourse()
+    {
+        for(Student x : AllStudents)
+        {   
+            this.AllStudents.remove(x);
+        }
+    }
+    public void RemoveStudent()
+    {
+    	Scanner sc = new Scanner(System.in);
+        for(Student x : AllStudents)
+        {
+            System.out.println("Name: " + x.Name + " |ID: " + x.Id);
+        }
+        System.out.println("Choose a Student to Remove");
+        String id  = sc.nextLine();
+        int ID = Integer.parseInt(id);
+
+        for(Student x : AllStudents)
+            if(ID == x.Id)
+            {
+            	AllStudents.remove(x);
+            }           
+        
+    }
+    public void AddStudent()
+    {
+    	Scanner sc = new Scanner(System.in);
+        System.out.println("Enter New Student ID: ");
+        String id  = sc.nextLine();
+        int ID = Integer.parseInt(id);
+        
+        System.out.println("Enter New Student Name: ");
+        String Newname = sc.nextLine();
+
+        Student NewStudent = new Student(ID, Newname, 0);
+        AllStudents.add(NewStudent);
+        System.out.println();
+        System.out.println("----------------------------------------");
+        System.out.println("Course ID: "+CourseID + " |Course Name: " + CourseName);
+        System.out.println("----------------------------------------");
+        System.out.println("List of Student in Course: " + CourseName);
+        for(Student x : AllStudents)
+        {
+            System.out.println("Name: " + x.Name + " |ID: " + x.Id);
+        }
+
+    }
+    public void EnterGrade()
+    {
+    	Scanner sc = new Scanner(System.in);
+        System.out.println();
+        System.out.println("List of students in Course: " + CourseName);
+        for(Student x : AllStudents)
+        {
+            System.out.println("Name: " + x.Name + " |ID: " + x.Id);
+        }
+        System.out.println("Choose a Student to Enter Final Grade");
+        String id  = sc.nextLine();
+        int ID = Integer.parseInt(id);
+        System.out.println("Enter a Grade for the Student:");
+        String newgrade  = sc.nextLine();
+        double NewGrade = Double.parseDouble(newgrade);
+
+        for(Student x : AllStudents)
+            if (ID == x.Id)
+            {
+                x.setGrade(NewGrade);
+                System.out.println("ID: " + x.Id + " | Name: " + x.Name + " | Grade: " + NewGrade);
+                
+            }
+    }
+    public void Average()
+    {
+        double avg = 0;
+        
+        List<Double> AllGrades = new ArrayList<Double>();
+        for(Student x : AllStudents)
+        {
+            AllGrades.add(x.getGrade());
+        }
+        for(double x : AllGrades)
+        {
+            if (x > 0)
+            {
+                avg = avg + x;
+                
+            }
+        }
+        double total = avg / AllGrades.size();
+
+        System.out.println("Student Average Grade: " + Math.round(total));
+        
+
+    }
+    public void Minimum()
+    {
+    	double findmin = 1000;
+        double min = 0;
+        String name = "";
+        
+        List<Double> AllGrades = new ArrayList<Double>();
+        for (Student x : AllStudents)
+        {
+            AllGrades.add(x.getGrade());
+
+        }
+        for (double x : AllGrades)
+        {
+            if (x < findmin)
+            {                   
+                min = x;                  
+            }
+        }
+        for (Student x : AllStudents)
+        {
+            if (x.getGrade() == min)
+            {
+                name = x.Name;
+            }
+
+        }
+        System.out.println("---------------------------------------");
+        System.out.println("Minumum Grade: " + min + " Student: " + name );
+        
+
+    }
+    public void Maximum()
+    {
+    	double findMax = -10000;
+        double max = 0;
+        String name = ("");
+        List<Double> AllGrades = new ArrayList<Double>();
+        for(Student x : AllStudents)
+        {
+            AllGrades.add(x.getGrade());
+        }
+        for(Double x : AllGrades)
+        {
+            if (x > findMax)
+            {
+                max = x;
+                
+            }
+        }
+        for(Student x : AllStudents)
+        {
+            if (x.getGrade() == max)
+            {
+                name = x.Name;
+            }
+
+        }
+        System.out.println("---------------------------------------");
+        System.out.println("Maximum Grade: " + max + " Student: " + name);
+        
+    }
+    public double Median()
+    {
+        List<Double> AllGrades = new ArrayList<Double>();
+        for(Student x : AllStudents)
+        {
+            AllGrades.add(x.getGrade());
+        }
+
+        return Median();
+    }
+    public void Percentage()
+    {
+        double a = 0;
+        double b = 0;
+        double c = 0;
+        double d = 0;
+        double f = 0;
+        List<Double> AllGrades = new ArrayList<Double>();
+        for(Student x : AllStudents)
+        {
+            AllGrades.add(x.getGrade());      
+        }
+        for(double x : AllGrades)
+        {
+            if (x >= 90)
+            {
+                a = a + 1;
+            }
+
+            else if (x >= 80)
+            {
+                b = b + 1;
+            }
+
+            else if (x >= 70)
+            {
+                c = c + 1;
+            }
+
+            else if (x >= 60)
+            {
+                d = d + 1;
+            }
+
+            else if (x < 60)
+            {
+                f = f + 1;
+            }
+            else
+            {
+
+            }
+        }
+
+
+        double aresult = a / AllGrades.size();
+        double bresult = b / AllGrades.size();
+        double cresult = c / AllGrades.size();
+        double dresult = d / AllGrades.size();
+        double fresult = f / AllGrades.size();
+
+        System.out.println("---------------------------------------");
+        System.out.println("Grade Percentage of All Enrolled students");
+        System.out.println("Percentage of A's: " + Math.round(aresult * 100) + "%");
+        System.out.println("Percentage of B's: " + Math.round(bresult * 100) + "%");
+        System.out.println("Percentage of C's: " + Math.round(cresult * 100) + "%");
+        System.out.println("Percentage of D's: " + Math.round(dresult * 100) + "%");
+        System.out.println("Percentage of F's: " + Math.round(fresult * 100) + "%");
+    }
+
+}
